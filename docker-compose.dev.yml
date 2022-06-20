@@ -12,7 +12,9 @@ services:
       - NODE_ENV=development
       - MONGO_USER=hawkinngo
       - MONGO_PASSWORD=hawkinngo
+      - SESSION_SECRET=secret
     command: npm run dev
+  
   mongo:
     image: mongo
     environment:

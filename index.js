@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const Redis = require("ioredis");
+const cors = require("cors");
 
 const {
   MONGO_USER,
@@ -42,6 +43,9 @@ const connectWithRetry = () => {
 
 connectWithRetry();
 
+app.enable("trust proxy");
+app.use(cors());
+
 app.use(
   session({
     store: new RedisStore({ client: redisClient }),
@@ -58,8 +62,9 @@ app.use(
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
+app.get("/api/v1", (req, res) => {
   res.send("<h2>Hi Thersse!!s!!</h2>");
+  console.log("yeah it ran");
 });
 
 app.use("/api/v1/posts", postRouter);
